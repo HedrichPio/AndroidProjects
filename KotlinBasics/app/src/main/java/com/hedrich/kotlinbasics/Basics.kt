@@ -22,27 +22,69 @@ fun main(){
 //        println("Entrance Denied!")
 //    }
 
-    var count = 0
-    while(count<3){
-        println("Count is $count")
-        count+=1
-    }
+//    var count = 0
+//    while(count<3){
+//        println("Count is $count")
+//        count+=1
+//    }
+//
+//    println("Please Enter a number")
+//    var userInput = readln().toInt()
+//
+//
+//    println("Starting at level 1")
+//    while (userInput!=0){
+//        userInput = readln().toInt()
+//        println("Continuing to next level")
+//    }
+//    println("Reached the end")
 
-    println("Please Enter a number")
-    var userInput = readln().toInt()
+    //--------------------------------------------------
+    makeCoffee("Ines",1U)
+    makeCoffee("Hedrich",2U)
+    makeCoffee("Pio",0U)
 
+    //--------------------------------------------------
+    println("Whose coffee is this?")
+    val name= readln().toString()
 
-    println("Starting at level 1")
-    while (userInput!=0){
-        userInput = readln().toInt()
-        println("Continuing to next level")
-    }
-    println("Reached the end")
+    println("How many sugar cubes")
+    val sugarCubes= readln().toUInt()
+
+    makeCoffee(name,sugarCubes)
+
+//--------------------------------------------------
+
+    val result = add(5,10)
+    println(result)
+
+//--------------------------------------------------
+    println("Enter number 1:")
+    val num1 = readln().toInt()
+    println("Enter number 2:")
+    val num2 = readln().toInt()
+
+    println("The result of $num1 + $num2 is ${add(num1,num2)}")
+
+//---------------------------------------------------
+    val smilie = Dog("Smilie","Mix")
+    println("${smilie.name} is a ${smilie.breed}")
+
 
 
 }
 
-
+fun makeCoffee(name:String, sugarCount: UInt){
+    println("Making $name's Coffee")
+    if(sugarCount==1U){
+        println("Added $sugarCount sugar cube")
+    }else if (sugarCount==0U){
+        println("Added no sugar cubes")
+    }
+    else{
+        println("Added $sugarCount sugar cubes")
+    }
+}
 
 
 
