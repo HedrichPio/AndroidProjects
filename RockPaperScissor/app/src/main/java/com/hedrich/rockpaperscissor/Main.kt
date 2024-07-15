@@ -1,29 +1,43 @@
 package com.hedrich.rockpaperscissor
 
-fun main(){
+fun main() {
+
     println("Initiating Game Rock Paper Scissor...")
     println("Please enter your choice :")
 
     val playerChoice = readln().toString()
+    var computerChoice = ""
 
     val randomNumber = (1..3).random()
 
-    var computerChoice = ""
+    when (randomNumber) {
+        1 -> {
+            computerChoice = "Rock"
+        }
 
-    when(randomNumber){
-        1->{computerChoice="rock"}
-        2->{computerChoice="paper"}
-        3->{computerChoice="scissor"}
+        2 -> {
+            computerChoice = "Paper"
+        }
+
+        3 -> {
+            computerChoice = "Scissor"
+        }
     }
 
-    val winner = when{
-        playerChoice==computerChoice-> "Tie"
-        playerChoice=="Rock" && computerChoice=="Scissor"-> "Player"
-        playerChoice=="Paper" && computerChoice=="Rock" -> "Player"
-        playerChoice=="Scissor" && computerChoice=="Paper"-> "Player"
-        else -> {"Computer"}
+    val winner = when {
+        playerChoice == computerChoice -> "Tie"
+        playerChoice == "Rock" && computerChoice == "Scissor" -> "Player"
+        playerChoice == "Paper" && computerChoice == "Rock" -> "Player"
+        playerChoice == "Scissor" && computerChoice == "Paper" -> "Player"
+        else -> {
+            "Computer"
+        }
     }
 
-    println("$winner Wins !!!")
+    if (winner == "Tie") {
+        println("Game Tied")
+    } else {
+        println("$winner Wins !!!")
+    }
 
 }
