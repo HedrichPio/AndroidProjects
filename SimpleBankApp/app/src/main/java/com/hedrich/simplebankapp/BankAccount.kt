@@ -26,6 +26,14 @@ class BankAccount(
         return transactionHistory
     }
 
+    fun accBalance():Double{
+        return balance
+    }
+
+    fun displayBalance(){
+        println("$accountHolder's balance is $balance")
+    }
+
     fun displayTransactionHistory(){
         println("Transaction History...")
         for(transaction in transactionHistory) {
