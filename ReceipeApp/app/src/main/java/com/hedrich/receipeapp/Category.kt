@@ -7,6 +7,6 @@ data class Category(
     val strCategoryDescription:String
 )
 
-data class Categories(
+data class CategoryList(
     val categories:List<Category>
 )

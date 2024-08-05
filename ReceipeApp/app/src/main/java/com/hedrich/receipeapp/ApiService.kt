@@ -14,5 +14,5 @@ val receipeService = retrofit.create(ApiService::class.java)
 interface ApiService{
 
     @GET("categories.php")
-     suspend fun getCategories():Categories
+     suspend fun getCategories():CategoryList
  }
