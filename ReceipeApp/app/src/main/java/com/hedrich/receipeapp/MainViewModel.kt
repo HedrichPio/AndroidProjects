@@ -14,21 +14,28 @@ class MainViewModel: ViewModel() {
     //public variable accessible from outside but read-only
     val categoryState:State<ReceipeState> = _categoryState
 
+    init {
+        fetchCategories()
+    }
+
     private fun fetchCategories(){
         viewModelScope.launch {
             try{
+                println("Trying")
                 val response = receipeService.getCategories()
                 _categoryState.value = _categoryState.value.copy(
                     list = response.categories,
                     loading = false,
                     error = null
                 )
+                println("Data loaded")
 
             }catch (e:Exception){
                 _categoryState.value = _categoryState.value.copy(
                     loading = false,
                     error = "Error fetching Categories ${e.message}"
                 )
+
             }
         }
     }

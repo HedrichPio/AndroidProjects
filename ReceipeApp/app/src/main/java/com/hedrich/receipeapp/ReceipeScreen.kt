@@ -46,6 +46,7 @@ fun ReceipeScreen(modifier: Modifier=Modifier){
 
 @Composable
 fun CategoryScreen(categories:List<Category>){
+    // Grid with 2 columns
     LazyVerticalGrid(GridCells.Fixed(2), modifier = Modifier.fillMaxSize()) {
         items(categories){
             category -> CategoryItem(category = category)
