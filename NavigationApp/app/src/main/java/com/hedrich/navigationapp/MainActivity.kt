@@ -52,10 +52,11 @@ fun MyApp(){
     
     NavHost(navController = navController, startDestination = "firstScreen") {
         composable("firstScreen"){
-            FirstScreen ({ navController.navigate("secondScreen")})
+            FirstScreen {name-> navController.navigate("secondScreen/$name")}
         }
-        composable("secondScreen"){
-            SecondScreen({navController.navigate("firstScreen")})
+        composable("secondScreen/{name}"){
+            val name = it.arguments?.getString("name")?: "no name"
+            SecondScreen(name,{navController.navigate("firstScreen")})
         }
     }
 }
@@ -63,7 +64,7 @@ fun MyApp(){
 
 
 @Composable
-fun FirstScreen(navigateToSecondScreen:()->Unit){
+fun FirstScreen(navigateToSecondScreen:(name:String)->Unit){
 
     val name = remember { mutableStateOf("") }
 
@@ -77,14 +78,14 @@ fun FirstScreen(navigateToSecondScreen:()->Unit){
         Text(text = "Welcome", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(value = name.value, onValueChange = { name.value=it } )
-        Button(onClick = { navigateToSecondScreen() }) {
+        Button(onClick = { navigateToSecondScreen(name.value) }) {
             Text(text = "Go to Second Screen")
         }
     }
 }
 
 @Composable
-fun SecondScreen(navigateToFirstScreen:()->Unit){
+fun SecondScreen(name:String, navigateToFirstScreen:()->Unit){
 
     Column(
         modifier = Modifier
@@ -93,7 +94,7 @@ fun SecondScreen(navigateToFirstScreen:()->Unit){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Text(text = "Hi you have navigated to the Second Screen", fontSize = 24.sp)
+        Text(text = "Hi $name you have navigated to the Second Screen", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = { navigateToFirstScreen() }) {
