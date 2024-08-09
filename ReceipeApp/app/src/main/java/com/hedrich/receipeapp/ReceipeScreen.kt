@@ -24,10 +24,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun ReceipeScreen(modifier: Modifier=Modifier,navigateToDetail:(Category)->Unit){
-
-    val receipeViewModel:MainViewModel  = viewModel()
-    val viewState by receipeViewModel.categoryState
+fun ReceipeScreen(
+    modifier: Modifier=Modifier,
+    viewState:MainViewModel.ReceipeState,
+    navigateToDetail:(Category)->Unit){
 
     Box(modifier = Modifier.fillMaxSize()) {
         when{
