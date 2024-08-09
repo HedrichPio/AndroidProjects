@@ -52,11 +52,12 @@ fun MyApp(){
     
     NavHost(navController = navController, startDestination = "firstScreen") {
         composable("firstScreen"){
-            FirstScreen {name-> navController.navigate("secondScreen/$name")}
+            FirstScreen ( {name,age -> navController.navigate("secondScreen/$name$age")} )
         }
-        composable("secondScreen/{name}"){
+        composable("secondScreen/{name}{age}"){
             val name = it.arguments?.getString("name")?: "no name"
-            SecondScreen(name,{navController.navigate("firstScreen")})
+            val age = it.arguments?.getString("age")?:"0"
+            SecondScreen( name,age, {navController.navigate("firstScreen")} )
         }
     }
 }
@@ -64,9 +65,10 @@ fun MyApp(){
 
 
 @Composable
-fun FirstScreen(navigateToSecondScreen:(name:String)->Unit){
+fun FirstScreen(navigateToSecondScreen:(name:String, age:String)->Unit){
 
     val name = remember { mutableStateOf("") }
+    val age = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -78,14 +80,15 @@ fun FirstScreen(navigateToSecondScreen:(name:String)->Unit){
         Text(text = "Welcome", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(value = name.value, onValueChange = { name.value=it } )
-        Button(onClick = { navigateToSecondScreen(name.value) }) {
+        OutlinedTextField(value = age.value, onValueChange = { age.value=it } )
+        Button(onClick = { navigateToSecondScreen(name.value, age.value) }) {
             Text(text = "Go to Second Screen")
         }
     }
 }
 
 @Composable
-fun SecondScreen(name:String, navigateToFirstScreen:()->Unit){
+fun SecondScreen(name:String, age:String, navigateToFirstScreen:()->Unit){
 
     Column(
         modifier = Modifier
@@ -95,6 +98,7 @@ fun SecondScreen(name:String, navigateToFirstScreen:()->Unit){
         horizontalAlignment = Alignment.CenterHorizontally) {
 
         Text(text = "Hi $name you have navigated to the Second Screen", fontSize = 24.sp)
+        Text(text = "Entered Age : $age", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = { navigateToFirstScreen() }) {

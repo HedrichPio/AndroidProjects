@@ -24,10 +24,15 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background) {
-                    ReceipeScreen()
+                    //ReceipeScreen()
                 }
             }
         }
     }
 }
 
+
+@Composable
+fun MyApp(){
+
+}
