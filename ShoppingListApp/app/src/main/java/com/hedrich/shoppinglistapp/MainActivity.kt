@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
             ShoppingListAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    ShoppingListApp(Modifier.padding(innerPadding))
+                    //ShoppingListApp(Modifier.padding(innerPadding))
                 }
             }
         }

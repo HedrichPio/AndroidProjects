@@ -159,6 +159,21 @@ fun ShoppingListApp(modifier: Modifier, locationUtils: LocationUtils,viewModel: 
                             .fillMaxWidth()
                             .padding(8.dp),
                         label = { Text(text = "Enter Quantity")})
+
+                    Button(
+                        onClick = { 
+                            if(locationUtils.hasLocationPermission(context)){
+                                locationUtils.requestLocationUpdates(viewModel)
+                                navController.navigate("locationScreen"){
+                                    this.launchSingleTop
+                                }
+    
+                            }else{
+                                requestPermissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION))
+                            }
+                        }) {
+                        Text(text = "address")
+                    }
                 }
             })
     }
