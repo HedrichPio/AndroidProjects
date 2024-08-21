@@ -16,10 +16,9 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.hedrich.shoppinglistapp.ui.theme.LocationData
 
 @Composable
-fun LocationSelectionScreen( location: LocationData, onLocationSelected: (LocationData)->Unit ){
+fun LocationSelectionScreen(location: LocationData, onLocationSelected: (LocationData)->Unit ){
 
     val userLocation = remember { mutableStateOf( LatLng(location.latitude,location.longitude) ) }
 
@@ -27,7 +26,7 @@ fun LocationSelectionScreen( location: LocationData, onLocationSelected: (Locati
         position = CameraPosition.fromLatLngZoom(userLocation.value, 10f)
     }
 
-    var newLocation:LocationData
+    var newLocation: LocationData
 
     Column(modifier = Modifier.fillMaxSize()) {
         GoogleMap(

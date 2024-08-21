@@ -1,4 +1,4 @@
-package com.hedrich.shoppinglistapp.ui.theme
+package com.hedrich.shoppinglistapp
 
 data class LocationData(
     val latitude: Double,
