@@ -51,7 +51,7 @@ data class ShoppingItem(
 )
 
 @Composable
-fun ShoppingListApp(modifier: Modifier, locationUtils: LocationUtils,viewModel: LocationViewModel,navController: NavController,context: Context, address: String){
+fun ShoppingListApp(locationUtils: LocationUtils,viewModel: LocationViewModel,navController: NavController,context: Context, address: String){
 
     var sItems by remember { mutableStateOf(listOf<ShoppingItem>()) }
     var showDialog by remember { mutableStateOf(false) }
@@ -84,7 +84,7 @@ fun ShoppingListApp(modifier: Modifier, locationUtils: LocationUtils,viewModel: 
         }
     )
 
-    Column(modifier = modifier, verticalArrangement = Arrangement.Center){
+    Column(verticalArrangement = Arrangement.Center){
         Button(onClick = {showDialog=true }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
             Text(text = "Add Item")
         }
@@ -102,6 +102,7 @@ fun ShoppingListApp(modifier: Modifier, locationUtils: LocationUtils,viewModel: 
                             editedItem?.let {
                                 it.name = editedName
                                 it.quantity = editedQuantity
+                                it.address = address
                             }
                     })
 
@@ -129,7 +130,7 @@ fun ShoppingListApp(modifier: Modifier, locationUtils: LocationUtils,viewModel: 
                     }
                     Button(onClick = {
                         if (itemName.isNotBlank()){
-                            val newItem = ShoppingItem(id = sItems.size + 1, name = itemName, quantity = itemQty.toInt())
+                            val newItem = ShoppingItem(id = sItems.size + 1, name = itemName, quantity = itemQty.toInt(),address = address)
                             sItems = sItems + newItem
                             showDialog=false
                             itemName=""
