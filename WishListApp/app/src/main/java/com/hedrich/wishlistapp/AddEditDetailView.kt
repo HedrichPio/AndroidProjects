@@ -11,14 +11,17 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
@@ -37,9 +40,33 @@ fun AddEditDetailView(id:Long,viewModel: WishViewModel,navController: NavControl
 
             Spacer(modifier = Modifier.height(10.dp))
 
+            WishTextField(
+                label = "Title",
+                value = viewModel.wishTitleState,
+                onValueChanged = {viewModel.onWishTitleChanged(it)})
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            WishTextField(
+                label = "Description",
+                value = viewModel.wishDescriptionState,
+                onValueChanged = {viewModel.onWishDescriptionChanged(it)})
+
+            Spacer(modifier = Modifier.height(10.dp))
+            
+            Button(onClick = {
+                if(viewModel.wishTitleState.isNotEmpty() && viewModel.wishDescriptionState.isNotEmpty()){
+                    //TODO updateWish
+                }else{
+                    // TODO Add Wish
+                }
+            }) {
+                Text(
+                    text = if (id != 0L) "Update" else "Add",
+                    style = TextStyle(fontSize = 18.sp))
+            }
         }
     }
-
 }
 
 @Composable
