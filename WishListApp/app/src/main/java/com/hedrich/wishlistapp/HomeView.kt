@@ -16,23 +16,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.hedrich.wishlistapp.data.DummyWish
 
 @Composable
-fun HomeView(modifier:Modifier){
+fun HomeView(modifier:Modifier,navController: NavController,viewModel: WishViewModel){
     val context = LocalContext.current
     Scaffold(
         modifier=modifier,
+
         topBar = {
             AppBarView(
-                title = "Wishlist",
-                { Toast.makeText(context,"Button Clicked", Toast.LENGTH_LONG).show() }) },
+                title = "Wishlist"
+            )
+         },
 
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier.padding(20.dp),
                 backgroundColor = Color.Black,
-                onClick = { Toast.makeText(context,"Plus Button Clicked", Toast.LENGTH_LONG).show() })  {
+                onClick = {
+                    Toast.makeText(context,"Plus Button Clicked", Toast.LENGTH_LONG).show()
+                    navController.navigate(Screen.AddScreen.route)}) {
 
                 Icon(imageVector = Icons.Default.Add, contentDescription = null, tint = Color.White)
             }

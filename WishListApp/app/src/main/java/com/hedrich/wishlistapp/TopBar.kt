@@ -18,11 +18,13 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppBarView(title:String,onBackNavClicked:()->Unit={}){
+fun AppBarView(title:String, onBackNavClicked:()->Unit={}){
 
     val navigationIcon: (@Composable ()->Unit)? = {
-        if (!title.contains("WishList")){
-            IconButton(onClick = { onBackNavClicked() }) {
+        if (!title.contains("Wishlist")){
+            IconButton(
+                onClick = { onBackNavClicked() }
+            ) {
                 Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
             }
         }else{
