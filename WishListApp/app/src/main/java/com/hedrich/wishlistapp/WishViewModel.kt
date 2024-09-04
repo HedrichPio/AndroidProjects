@@ -5,13 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hedrich.wishlistapp.data.Graph
 import com.hedrich.wishlistapp.data.Wish
 import com.hedrich.wishlistapp.data.WishRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class WishViewModel(private val wishRepository: WishRepository): ViewModel() {
+class WishViewModel(private val wishRepository: WishRepository = Graph.wishRepository): ViewModel() {
 
     var wishTitleState by mutableStateOf("")
     var wishDescriptionState by mutableStateOf("")
