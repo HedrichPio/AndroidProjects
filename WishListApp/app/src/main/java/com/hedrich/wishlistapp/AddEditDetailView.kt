@@ -101,7 +101,7 @@ fun AddEditDetailView(id:Long,viewModel: WishViewModel,navController: NavControl
                 onClick = {
                     if(viewModel.wishTitleState.isNotEmpty() && viewModel.wishDescriptionState.isNotEmpty()){
                         if(id!=0L){
-                            //TODO updateWish
+                            viewModel.updateWish( Wish(id=id, title = viewModel.wishTitleState.trim(), description = viewModel.wishDescriptionState.trim()))
                         }else{
                             viewModel.addWish(
                                 Wish ( title = viewModel.wishTitleState.trim(), description = viewModel.wishDescriptionState.trim() ))
