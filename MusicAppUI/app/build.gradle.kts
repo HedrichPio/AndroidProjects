@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.hedrich.musicappui"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.hedrich.musicappui"

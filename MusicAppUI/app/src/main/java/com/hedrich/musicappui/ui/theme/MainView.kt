@@ -3,10 +3,12 @@ package com.hedrich.musicappui.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -19,11 +21,22 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.hedrich.musicappui.MainViewModel
 import com.hedrich.musicappui.Screen
 import com.hedrich.musicappui.screensInDrawer
 import kotlinx.coroutines.CoroutineScope
@@ -35,11 +48,23 @@ fun MainView(modifier: Modifier){
 
     val scaffoldState:ScaffoldState = rememberScaffoldState()
     val scope:CoroutineScope = rememberCoroutineScope()
+    val viewModel: MainViewModel = viewModel()
+
+    //used to find the current view
+    val controller:NavController= rememberNavController()
+    val navBackStackEntry by controller.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    val currentScreen = remember {
+        viewModel.currentScreen.value
+    }
+
+    val title = remember { mutableStateOf(currentScreen.title) }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Home") },
+                title = { Text(text = "$title") },
                 navigationIcon = {
                     IconButton(
                         onClick = { scope.launch { scaffoldState.drawerState.open() } }) {
@@ -50,12 +75,27 @@ fun MainView(modifier: Modifier){
         },
         scaffoldState=scaffoldState,
         drawerContent = {
+            LazyColumn {
+                items(screensInDrawer){
+                    item->
+                    DrawerItem(selected = currentRoute == item.dRoute, item = item ) {
+                        scope.launch {
+                            scaffoldState.drawerState.close()
+                        }
+                        if(item.dRoute == "add_account"){
+
+                        }else{
+                            controller.navigate(item.dRoute)
+                            title.value = item.dTitle
+                        }
+                    }
+                }
+            }
 
         }
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
-            Text(text = "Hello")
-        }
+
+        Navigation(navController = controller , viewModel = viewModel, pd = innerPadding )
     }
 }
 
@@ -80,4 +120,19 @@ fun DrawerItem(selected:Boolean,item:Screen.DrawerScreen,onDrawerItemClicked:()-
         Text(text = item.dTitle, style = MaterialTheme.typography.labelMedium)
     }
 
+}
+
+
+@Composable
+fun Navigation(navController: NavController,viewModel: MainViewModel,pd:PaddingValues){
+
+    NavHost(
+        navController = navController as NavHostController ,
+        startDestination = Screen.DrawerScreen.AddAccount.route,
+        modifier = Modifier.padding(pd)) {
+
+        composable(Screen.DrawerScreen.AddAccount.route){}
+        composable(Screen.DrawerScreen.Subscription.route){}
+
+    }
 }
